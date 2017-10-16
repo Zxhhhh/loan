@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+     http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+     
+     
+     <util:properties id="propertiesReader" location="classpath:loanSetting.properties"/>
+     
+        
+    <!-- 配置SpringMVC -->
+	<!-- 1.打开SpringMVC注解 -->
+	<!-- 简化配置
+		(1)自动注册DefaultAnnotationHandlerMapping,
+			AnnotationMethodHandlerAdapter
+		(2):提供一系列:数据绑定,数字日期的format转换:@NumberFormat,@DataTimeFormat,
+		    xml,json默认读写支持
+	 -->
+	<mvc:annotation-driven/>
+	
+	<!-- 2.servlet-mapping 映射路径:"/",要做处理 -->
+	<!-- 静态资源默认servlet配置
+		 1.加入对静态资源的处理，如js，gif，png
+		 2.允许使用"/"做整体映射
+	 -->
+	 <mvc:default-servlet-handler/>
+	
+	<!-- 3.以JSP格式显示ViewResovler -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 静态资源映射 -->
+<!-- 	<mvc:resources location="/WEB-INF/res/css" mapping="/res/css/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/res/js" mapping="/res/js/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/res/img/" mapping="/res/img/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/res/common" mapping="/res/common/**"></mvc:resources> -->
+	
+	<!-- mvc拦截器: 字符编码拦截 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.gy612.loan.interceptors.EncodeInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	<!-- mvc拦截器：登录拦截 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/index/**"/>
+			<bean class="com.gy612.loan.interceptors.LoginInteceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- mvc拦截器：新消息检查 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.gy612.loan.interceptors.RemindInterceptors"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/loan/enter/**"/>
+			<bean class="com.gy612.loan.interceptors.LoanInteceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+        
+	<!-- 包扫描器，扫描控制器Controller -->
+	<context:component-scan base-package="com.gy612.loan.controller,com.gy612.loan.utils" />
+	
+	<!-- 配置fileUpload文件上传 -->
+	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2099715200"></property>
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="resolveLazily" value="true"></property>
+	</bean>
+	
+	<!-- 配置定时器:检查并修改考试状态 -->
+	<bean id="personalLoanCheck" class="com.gy612.loan.task.PersonalLoanTask" /> 
+	<bean id="companyLoanCheck" class="com.gy612.loan.task.CompanyLoanTask"/>
+	<bean id="systemTask" class="com.gy612.loan.task.SystemTask" /> 
+    <task:scheduled-tasks>
+    	<!-- cron表达式:每一天执行一次 -->  
+        <task:scheduled ref="personalLoanCheck" method="checkLoanStatus" cron="0 0 0 1/1 * ?" /> 
+        <task:scheduled ref="companyLoanCheck" method="checkLoanStatus" cron="0 0 0 1/1 * ?" />
+        <task:scheduled ref="systemTask" method="system" cron="0 0 0 1/1 * ?" />
+    </task:scheduled-tasks>  
+	
+</beans>

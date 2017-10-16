@@ -1,0 +1,78 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+	<!-- 配置spring容器 Spring框架配置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	 <listener>  
+    <listener-class>org.directwebremoting.servlet.DwrListener</listener-class>  
+  </listener> 
+
+  <servlet>
+      <servlet-name>dwr</servlet-name>
+      <!-- version 2 * -->
+      <!-- <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class> -->
+      <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+      <init-param>
+          <param-name>debug</param-name>
+          <param-value>true</param-value>
+      </init-param>
+      <!-- 使用服务器反转AJAX  -->
+      <init-param>
+          <param-name>activeReverseAjaxEnabled</param-name>
+          <param-value>true</param-value>
+      </init-param>
+      <!-- 是能够从其他域请求true：开启； false：关闭 -->
+      <init-param>
+          <param-name>crossDomainSessionSecurity</param-name>
+          <param-value>false</param-value>
+      </init-param>
+      <!-- 允许远程调用js -->
+      <init-param>
+          <param-name>allowScriptTagRemoting</param-name>
+          <param-value>true</param-value>
+      </init-param>
+
+      <load-on-startup>1</load-on-startup>  
+  </servlet>
+
+	<servlet>
+		<servlet-name>loan-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 配置SpringMVC需要加载的配置文件 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/*.xml</param-value>
+		</init-param>
+	</servlet>
+	<!-- 配置Jcaptcha 验证码 -->
+	<servlet>
+		<servlet-name>jcaptcha</servlet-name>
+		<servlet-class>net.togogo.egou_gy.servlet.JcaptchaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loan-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>jcaptcha</servlet-name>
+		<url-pattern>/captcha.svl</url-pattern>
+	</servlet-mapping>
+	
+   <servlet-mapping>
+      <servlet-name>dwr</servlet-name>
+      <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>

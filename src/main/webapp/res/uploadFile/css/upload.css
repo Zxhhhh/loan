@@ -1,0 +1,75 @@
+    .wrap{
+      width: 450px;
+      height: 450px;
+      border: 1px solid black;
+      margin: 100px auto;
+      padding: 20px;
+    }
+    .file-name{
+
+    }
+    .progressNumber{
+      width: 80%;
+      height: 20px;
+      background: #ccc;
+      margin: auto;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .file-wrap{
+      position: relative;
+      width: 80%;
+      margin: 30px auto;
+    }
+    .file-div{
+      position: absolute;
+      left: 36%;
+      z-index: 50;
+    }
+    .fileInputP{
+      display: inline-block;
+      width: 120px;
+      height: 30px;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+    .fileInputP span{
+      display: inline-block;
+      width: 110px;
+      height: 30px;
+      color: #fff;
+      background: #0e90d2;
+      text-align: center;
+      line-height: 30px;
+      cursor: pointer;
+      border-radius: 5px;
+
+    }
+    .fileInputP input{
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+    }
+    #fileSpan{
+      display: inline-block;
+      width: 100%;
+      height: 150px;
+      border: 2px dashed #ccc;
+      text-align: center;
+      line-height: 100px;
+      position: relative;
+    }
+    .file{
+      position: relative;
+    }
+    .updata{
+      cursor: pointer;
+      color: #142ae4;
+      font-weight: bold;
+      position: absolute;
+      right: 30px;ß
+    }

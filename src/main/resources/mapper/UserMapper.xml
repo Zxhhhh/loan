@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="usermail" property="usermail" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="info_id" property="infoId" jdbcType="VARCHAR" />
+    <result column="secure_id" property="secureId" jdbcType="VARCHAR" />
+    <result column="state_id" property="stateId" jdbcType="VARCHAR" />
+    <result column="is_activate" property="isActivate" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, username, password, usermail, salt, create_date, info_id, secure_id, state_id, 
+    is_activate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.User" >
+    insert into user (id, username, password, 
+      usermail, salt, create_date, 
+      info_id, secure_id, state_id, 
+      is_activate)
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{usermail,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{infoId,jdbcType=VARCHAR}, #{secureId,jdbcType=VARCHAR}, #{stateId,jdbcType=VARCHAR}, 
+      #{isActivate,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="usermail != null" >
+        usermail,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="secureId != null" >
+        secure_id,
+      </if>
+      <if test="stateId != null" >
+        state_id,
+      </if>
+      <if test="isActivate != null" >
+        is_activate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usermail != null" >
+        #{usermail,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="secureId != null" >
+        #{secureId,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        #{stateId,jdbcType=VARCHAR},
+      </if>
+      <if test="isActivate != null" >
+        #{isActivate,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usermail != null" >
+        usermail = #{record.usermail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.infoId != null" >
+        info_id = #{record.infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secureId != null" >
+        secure_id = #{record.secureId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateId != null" >
+        state_id = #{record.stateId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isActivate != null" >
+        is_activate = #{record.isActivate,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      usermail = #{record.usermail,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      info_id = #{record.infoId,jdbcType=VARCHAR},
+      secure_id = #{record.secureId,jdbcType=VARCHAR},
+      state_id = #{record.stateId,jdbcType=VARCHAR},
+      is_activate = #{record.isActivate,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usermail != null" >
+        usermail = #{usermail,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="infoId != null" >
+        info_id = #{infoId,jdbcType=VARCHAR},
+      </if>
+      <if test="secureId != null" >
+        secure_id = #{secureId,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        state_id = #{stateId,jdbcType=VARCHAR},
+      </if>
+      <if test="isActivate != null" >
+        is_activate = #{isActivate,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.User" >
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      usermail = #{usermail,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      info_id = #{infoId,jdbcType=VARCHAR},
+      secure_id = #{secureId,jdbcType=VARCHAR},
+      state_id = #{stateId,jdbcType=VARCHAR},
+      is_activate = #{isActivate,jdbcType=TINYINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

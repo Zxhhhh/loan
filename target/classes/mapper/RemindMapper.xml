@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.RemindMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.Remind" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="remind_type" property="remindType" jdbcType="TINYINT" />
+    <result column="remind_state" property="remindState" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="remind_content" property="remindContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, remind_type, remind_state, create_date, user_id, remind_content
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.RemindExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from remind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from remind
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from remind
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.RemindExample" >
+    delete from remind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.Remind" >
+    insert into remind (id, remind_type, remind_state, 
+      create_date, user_id, remind_content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{remindType,jdbcType=TINYINT}, #{remindState,jdbcType=TINYINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=VARCHAR}, #{remindContent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.Remind" >
+    insert into remind
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="remindType != null" >
+        remind_type,
+      </if>
+      <if test="remindState != null" >
+        remind_state,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="remindContent != null" >
+        remind_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="remindType != null" >
+        #{remindType,jdbcType=TINYINT},
+      </if>
+      <if test="remindState != null" >
+        #{remindState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        #{remindContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.RemindExample" resultType="java.lang.Integer" >
+    select count(*) from remind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update remind
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindType != null" >
+        remind_type = #{record.remindType,jdbcType=TINYINT},
+      </if>
+      <if test="record.remindState != null" >
+        remind_state = #{record.remindState,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindContent != null" >
+        remind_content = #{record.remindContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update remind
+    set id = #{record.id,jdbcType=VARCHAR},
+      remind_type = #{record.remindType,jdbcType=TINYINT},
+      remind_state = #{record.remindState,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      remind_content = #{record.remindContent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.Remind" >
+    update remind
+    <set >
+      <if test="remindType != null" >
+        remind_type = #{remindType,jdbcType=TINYINT},
+      </if>
+      <if test="remindState != null" >
+        remind_state = #{remindState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        remind_content = #{remindContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.Remind" >
+    update remind
+    set remind_type = #{remindType,jdbcType=TINYINT},
+      remind_state = #{remindState,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      remind_content = #{remindContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+ <select id="countByRemindState" resultType="java.lang.Integer">
+ 	select count(*) from remind where remind_state=#{remindState,jdbcType=TINYINT} and user_id = #{userId,jdbcType=VARCHAR}
+ </select>
+  
+</mapper>

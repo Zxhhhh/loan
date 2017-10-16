@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "htsstp://getahead.org/dwr/dwr30.dtd">
+<dwr>
+    <allow>
+        <create creator="new" javascript="DwrPush">
+            <param name="class" value="com.gy612.loan.utils.DwrPush"></param>
+            
+            <include method="FeedbackSend"/>
+            <include method="OnPage"/>
+            <include method="ServerSend"/>
+        </create>
+    </allow>
+</dwr>

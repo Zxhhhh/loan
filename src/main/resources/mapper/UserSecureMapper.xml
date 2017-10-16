@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.UserSecureMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.UserSecure" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="secure_mail" property="secureMail" jdbcType="VARCHAR" />
+    <result column="secure_question" property="secureQuestion" jdbcType="VARCHAR" />
+    <result column="secure_answer" property="secureAnswer" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, secure_mail, secure_question, secure_answer, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.UserSecureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_secure
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_secure
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.UserSecureExample" >
+    delete from user_secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.UserSecure" >
+    insert into user_secure (id, secure_mail, secure_question, 
+      secure_answer, create_date)
+    values (#{id,jdbcType=VARCHAR}, #{secureMail,jdbcType=VARCHAR}, #{secureQuestion,jdbcType=VARCHAR}, 
+      #{secureAnswer,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.UserSecure" >
+    insert into user_secure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="secureMail != null" >
+        secure_mail,
+      </if>
+      <if test="secureQuestion != null" >
+        secure_question,
+      </if>
+      <if test="secureAnswer != null" >
+        secure_answer,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="secureMail != null" >
+        #{secureMail,jdbcType=VARCHAR},
+      </if>
+      <if test="secureQuestion != null" >
+        #{secureQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="secureAnswer != null" >
+        #{secureAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.UserSecureExample" resultType="java.lang.Integer" >
+    select count(*) from user_secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_secure
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secureMail != null" >
+        secure_mail = #{record.secureMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secureQuestion != null" >
+        secure_question = #{record.secureQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secureAnswer != null" >
+        secure_answer = #{record.secureAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_secure
+    set id = #{record.id,jdbcType=VARCHAR},
+      secure_mail = #{record.secureMail,jdbcType=VARCHAR},
+      secure_question = #{record.secureQuestion,jdbcType=VARCHAR},
+      secure_answer = #{record.secureAnswer,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.UserSecure" >
+    update user_secure
+    <set >
+      <if test="secureMail != null" >
+        secure_mail = #{secureMail,jdbcType=VARCHAR},
+      </if>
+      <if test="secureQuestion != null" >
+        secure_question = #{secureQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="secureAnswer != null" >
+        secure_answer = #{secureAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.UserSecure" >
+    update user_secure
+    set secure_mail = #{secureMail,jdbcType=VARCHAR},
+      secure_question = #{secureQuestion,jdbcType=VARCHAR},
+      secure_answer = #{secureAnswer,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

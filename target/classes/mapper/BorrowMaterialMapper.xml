@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.BorrowMaterialMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.BorrowMaterial" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="material_identification" property="materialIdentification" jdbcType="VARCHAR" />
+    <result column="material_houseproperty" property="materialHouseproperty" jdbcType="VARCHAR" />
+    <result column="material_drivinglicence" property="materialDrivinglicence" jdbcType="VARCHAR" />
+    <result column="material_paymenthistory" property="materialPaymenthistory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, material_identification, material_houseproperty, material_drivinglicence, material_paymenthistory
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.BorrowMaterialExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_material
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_material
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from borrow_material
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.BorrowMaterialExample" >
+    delete from borrow_material
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.BorrowMaterial" >
+    insert into borrow_material (id, material_identification, material_houseproperty, 
+      material_drivinglicence, material_paymenthistory
+      )
+    values (#{id,jdbcType=VARCHAR}, #{materialIdentification,jdbcType=VARCHAR}, #{materialHouseproperty,jdbcType=VARCHAR}, 
+      #{materialDrivinglicence,jdbcType=VARCHAR}, #{materialPaymenthistory,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.BorrowMaterial" >
+    insert into borrow_material
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialIdentification != null" >
+        material_identification,
+      </if>
+      <if test="materialHouseproperty != null" >
+        material_houseproperty,
+      </if>
+      <if test="materialDrivinglicence != null" >
+        material_drivinglicence,
+      </if>
+      <if test="materialPaymenthistory != null" >
+        material_paymenthistory,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="materialIdentification != null" >
+        #{materialIdentification,jdbcType=VARCHAR},
+      </if>
+      <if test="materialHouseproperty != null" >
+        #{materialHouseproperty,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDrivinglicence != null" >
+        #{materialDrivinglicence,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPaymenthistory != null" >
+        #{materialPaymenthistory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.BorrowMaterialExample" resultType="java.lang.Integer" >
+    select count(*) from borrow_material
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow_material
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialIdentification != null" >
+        material_identification = #{record.materialIdentification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialHouseproperty != null" >
+        material_houseproperty = #{record.materialHouseproperty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialDrivinglicence != null" >
+        material_drivinglicence = #{record.materialDrivinglicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialPaymenthistory != null" >
+        material_paymenthistory = #{record.materialPaymenthistory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow_material
+    set id = #{record.id,jdbcType=VARCHAR},
+      material_identification = #{record.materialIdentification,jdbcType=VARCHAR},
+      material_houseproperty = #{record.materialHouseproperty,jdbcType=VARCHAR},
+      material_drivinglicence = #{record.materialDrivinglicence,jdbcType=VARCHAR},
+      material_paymenthistory = #{record.materialPaymenthistory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.BorrowMaterial" >
+    update borrow_material
+    <set >
+      <if test="materialIdentification != null" >
+        material_identification = #{materialIdentification,jdbcType=VARCHAR},
+      </if>
+      <if test="materialHouseproperty != null" >
+        material_houseproperty = #{materialHouseproperty,jdbcType=VARCHAR},
+      </if>
+      <if test="materialDrivinglicence != null" >
+        material_drivinglicence = #{materialDrivinglicence,jdbcType=VARCHAR},
+      </if>
+      <if test="materialPaymenthistory != null" >
+        material_paymenthistory = #{materialPaymenthistory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.BorrowMaterial" >
+    update borrow_material
+    set material_identification = #{materialIdentification,jdbcType=VARCHAR},
+      material_houseproperty = #{materialHouseproperty,jdbcType=VARCHAR},
+      material_drivinglicence = #{materialDrivinglicence,jdbcType=VARCHAR},
+      material_paymenthistory = #{materialPaymenthistory,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

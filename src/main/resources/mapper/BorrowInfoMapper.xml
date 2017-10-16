@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.BorrowInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.BorrowInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="borrow_contact" property="borrowContact" jdbcType="VARCHAR" />
+    <result column="borrow_unit" property="borrowUnit" jdbcType="VARCHAR" />
+    <result column="borrow_finance" property="borrowFinance" jdbcType="VARCHAR" />
+    <result column="borrow_company_name" property="borrowCompanyName" jdbcType="VARCHAR" />
+    <result column="borrow_company_entity" property="borrowCompanyEntity" jdbcType="VARCHAR" />
+    <result column="borrow_registered_capital" property="borrowRegisteredCapital" jdbcType="DOUBLE" />
+    <result column="borrow_company_location" property="borrowCompanyLocation" jdbcType="VARCHAR" />
+    <result column="borrow_company_code" property="borrowCompanyCode" jdbcType="VARCHAR" />
+    <result column="borrow_financing_fund" property="borrowFinancingFund" jdbcType="DOUBLE" />
+    <result column="borrow_state" property="borrowState" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="is_repay" property="isRepay" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="remind_content" property="remindContent" jdbcType="VARCHAR" />
+    <result column="borrow_money" property="borrowMoney" jdbcType="DOUBLE" />
+    <result column="borrow_return_money" property="borrowReturnMoney" jdbcType="DOUBLE" />
+    <result column="borrow_return_date" property="borrowReturnDate" jdbcType="TIMESTAMP" />
+    <result column="borrow_month" property="borrowMonth" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, borrow_contact, borrow_unit, borrow_finance, borrow_company_name, borrow_company_entity, 
+    borrow_registered_capital, borrow_company_location, borrow_company_code, borrow_financing_fund, 
+    borrow_state, create_date, is_repay, user_id, material_id, remind_content, borrow_money, 
+    borrow_return_money, borrow_return_date, borrow_month
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.BorrowInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from borrow_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from borrow_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.BorrowInfoExample" >
+    delete from borrow_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.BorrowInfo" >
+    insert into borrow_info (id, borrow_contact, borrow_unit, 
+      borrow_finance, borrow_company_name, borrow_company_entity, 
+      borrow_registered_capital, borrow_company_location, 
+      borrow_company_code, borrow_financing_fund, 
+      borrow_state, create_date, is_repay, 
+      user_id, material_id, remind_content, 
+      borrow_money, borrow_return_money, borrow_return_date, 
+      borrow_month)
+    values (#{id,jdbcType=VARCHAR}, #{borrowContact,jdbcType=VARCHAR}, #{borrowUnit,jdbcType=VARCHAR}, 
+      #{borrowFinance,jdbcType=VARCHAR}, #{borrowCompanyName,jdbcType=VARCHAR}, #{borrowCompanyEntity,jdbcType=VARCHAR}, 
+      #{borrowRegisteredCapital,jdbcType=DOUBLE}, #{borrowCompanyLocation,jdbcType=VARCHAR}, 
+      #{borrowCompanyCode,jdbcType=VARCHAR}, #{borrowFinancingFund,jdbcType=DOUBLE}, 
+      #{borrowState,jdbcType=TINYINT}, #{createDate,jdbcType=TIMESTAMP}, #{isRepay,jdbcType=TINYINT}, 
+      #{userId,jdbcType=VARCHAR}, #{materialId,jdbcType=VARCHAR}, #{remindContent,jdbcType=VARCHAR}, 
+      #{borrowMoney,jdbcType=DOUBLE}, #{borrowReturnMoney,jdbcType=DOUBLE}, #{borrowReturnDate,jdbcType=TIMESTAMP}, 
+      #{borrowMonth,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.BorrowInfo" >
+    insert into borrow_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="borrowContact != null" >
+        borrow_contact,
+      </if>
+      <if test="borrowUnit != null" >
+        borrow_unit,
+      </if>
+      <if test="borrowFinance != null" >
+        borrow_finance,
+      </if>
+      <if test="borrowCompanyName != null" >
+        borrow_company_name,
+      </if>
+      <if test="borrowCompanyEntity != null" >
+        borrow_company_entity,
+      </if>
+      <if test="borrowRegisteredCapital != null" >
+        borrow_registered_capital,
+      </if>
+      <if test="borrowCompanyLocation != null" >
+        borrow_company_location,
+      </if>
+      <if test="borrowCompanyCode != null" >
+        borrow_company_code,
+      </if>
+      <if test="borrowFinancingFund != null" >
+        borrow_financing_fund,
+      </if>
+      <if test="borrowState != null" >
+        borrow_state,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="isRepay != null" >
+        is_repay,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="remindContent != null" >
+        remind_content,
+      </if>
+      <if test="borrowMoney != null" >
+        borrow_money,
+      </if>
+      <if test="borrowReturnMoney != null" >
+        borrow_return_money,
+      </if>
+      <if test="borrowReturnDate != null" >
+        borrow_return_date,
+      </if>
+      <if test="borrowMonth != null" >
+        borrow_month,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowContact != null" >
+        #{borrowContact,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUnit != null" >
+        #{borrowUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowFinance != null" >
+        #{borrowFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyName != null" >
+        #{borrowCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyEntity != null" >
+        #{borrowCompanyEntity,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowRegisteredCapital != null" >
+        #{borrowRegisteredCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowCompanyLocation != null" >
+        #{borrowCompanyLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyCode != null" >
+        #{borrowCompanyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowFinancingFund != null" >
+        #{borrowFinancingFund,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowState != null" >
+        #{borrowState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRepay != null" >
+        #{isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        #{remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null" >
+        #{borrowMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowReturnMoney != null" >
+        #{borrowReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowReturnDate != null" >
+        #{borrowReturnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowMonth != null" >
+        #{borrowMonth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.BorrowInfoExample" resultType="java.lang.Integer" >
+    select count(*) from borrow_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update borrow_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowContact != null" >
+        borrow_contact = #{record.borrowContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowUnit != null" >
+        borrow_unit = #{record.borrowUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowFinance != null" >
+        borrow_finance = #{record.borrowFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowCompanyName != null" >
+        borrow_company_name = #{record.borrowCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowCompanyEntity != null" >
+        borrow_company_entity = #{record.borrowCompanyEntity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowRegisteredCapital != null" >
+        borrow_registered_capital = #{record.borrowRegisteredCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="record.borrowCompanyLocation != null" >
+        borrow_company_location = #{record.borrowCompanyLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowCompanyCode != null" >
+        borrow_company_code = #{record.borrowCompanyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowFinancingFund != null" >
+        borrow_financing_fund = #{record.borrowFinancingFund,jdbcType=DOUBLE},
+      </if>
+      <if test="record.borrowState != null" >
+        borrow_state = #{record.borrowState,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isRepay != null" >
+        is_repay = #{record.isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialId != null" >
+        material_id = #{record.materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindContent != null" >
+        remind_content = #{record.remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowMoney != null" >
+        borrow_money = #{record.borrowMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.borrowReturnMoney != null" >
+        borrow_return_money = #{record.borrowReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.borrowReturnDate != null" >
+        borrow_return_date = #{record.borrowReturnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowMonth != null" >
+        borrow_month = #{record.borrowMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update borrow_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      borrow_contact = #{record.borrowContact,jdbcType=VARCHAR},
+      borrow_unit = #{record.borrowUnit,jdbcType=VARCHAR},
+      borrow_finance = #{record.borrowFinance,jdbcType=VARCHAR},
+      borrow_company_name = #{record.borrowCompanyName,jdbcType=VARCHAR},
+      borrow_company_entity = #{record.borrowCompanyEntity,jdbcType=VARCHAR},
+      borrow_registered_capital = #{record.borrowRegisteredCapital,jdbcType=DOUBLE},
+      borrow_company_location = #{record.borrowCompanyLocation,jdbcType=VARCHAR},
+      borrow_company_code = #{record.borrowCompanyCode,jdbcType=VARCHAR},
+      borrow_financing_fund = #{record.borrowFinancingFund,jdbcType=DOUBLE},
+      borrow_state = #{record.borrowState,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      is_repay = #{record.isRepay,jdbcType=TINYINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      material_id = #{record.materialId,jdbcType=VARCHAR},
+      remind_content = #{record.remindContent,jdbcType=VARCHAR},
+      borrow_money = #{record.borrowMoney,jdbcType=DOUBLE},
+      borrow_return_money = #{record.borrowReturnMoney,jdbcType=DOUBLE},
+      borrow_return_date = #{record.borrowReturnDate,jdbcType=TIMESTAMP},
+      borrow_month = #{record.borrowMonth,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.BorrowInfo" >
+    update borrow_info
+    <set >
+      <if test="borrowContact != null" >
+        borrow_contact = #{borrowContact,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowUnit != null" >
+        borrow_unit = #{borrowUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowFinance != null" >
+        borrow_finance = #{borrowFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyName != null" >
+        borrow_company_name = #{borrowCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyEntity != null" >
+        borrow_company_entity = #{borrowCompanyEntity,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowRegisteredCapital != null" >
+        borrow_registered_capital = #{borrowRegisteredCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowCompanyLocation != null" >
+        borrow_company_location = #{borrowCompanyLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowCompanyCode != null" >
+        borrow_company_code = #{borrowCompanyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowFinancingFund != null" >
+        borrow_financing_fund = #{borrowFinancingFund,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowState != null" >
+        borrow_state = #{borrowState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRepay != null" >
+        is_repay = #{isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="materialId != null" >
+        material_id = #{materialId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        remind_content = #{remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowMoney != null" >
+        borrow_money = #{borrowMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowReturnMoney != null" >
+        borrow_return_money = #{borrowReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="borrowReturnDate != null" >
+        borrow_return_date = #{borrowReturnDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowMonth != null" >
+        borrow_month = #{borrowMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.BorrowInfo" >
+    update borrow_info
+    set borrow_contact = #{borrowContact,jdbcType=VARCHAR},
+      borrow_unit = #{borrowUnit,jdbcType=VARCHAR},
+      borrow_finance = #{borrowFinance,jdbcType=VARCHAR},
+      borrow_company_name = #{borrowCompanyName,jdbcType=VARCHAR},
+      borrow_company_entity = #{borrowCompanyEntity,jdbcType=VARCHAR},
+      borrow_registered_capital = #{borrowRegisteredCapital,jdbcType=DOUBLE},
+      borrow_company_location = #{borrowCompanyLocation,jdbcType=VARCHAR},
+      borrow_company_code = #{borrowCompanyCode,jdbcType=VARCHAR},
+      borrow_financing_fund = #{borrowFinancingFund,jdbcType=DOUBLE},
+      borrow_state = #{borrowState,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      is_repay = #{isRepay,jdbcType=TINYINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      material_id = #{materialId,jdbcType=VARCHAR},
+      remind_content = #{remindContent,jdbcType=VARCHAR},
+      borrow_money = #{borrowMoney,jdbcType=DOUBLE},
+      borrow_return_money = #{borrowReturnMoney,jdbcType=DOUBLE},
+      borrow_return_date = #{borrowReturnDate,jdbcType=TIMESTAMP},
+      borrow_month = #{borrowMonth,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

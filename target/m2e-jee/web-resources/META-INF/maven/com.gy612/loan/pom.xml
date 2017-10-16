@@ -1,0 +1,273 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.gy612</groupId>
+	<artifactId>loan</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>loan Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring-version>4.3.4.RELEASE</spring-version>
+		<commons-collections-version>3.2</commons-collections-version>
+		<commons-fileupload-version>1.2.2</commons-fileupload-version>
+		<org.apache.commons-version>3.1</org.apache.commons-version>
+		<commons-codec-version>1.6</commons-codec-version>
+		<jersey.version>1.9.12</jersey.version>
+		<junit.version>4.12</junit.version>
+		<net.fckeditor.version>2.6</net.fckeditor.version>
+		<commons-dbcp.version>1.2.2</commons-dbcp.version>
+		<commons-pool.version>1.5.4</commons-pool.version>
+		<mysql.version>5.1.25</mysql.version>
+	</properties>
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 依赖: 1.日志: slf4j+logback 2. -->
+		<!-- 日志:slf4j(规范)+logback(实现) -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<!-- 实现slf4j接口并整合，使用时操作slf4j即可 -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- 数据库:mysql+dbcp -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${commons-dbcp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>${commons-pool.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+
+		<!-- DAO框架:Mybatis及整合spring的依赖 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<!-- servlet相关: -->
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${org.apache.commons-version}</version>
+		</dependency>
+
+		
+		<!-- json 相关 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.4</version>
+		</dependency>
+		
+		<!-- 邮件相关:javaMail -->
+		<dependency>
+	      <groupId>javax.mail</groupId>
+	      <artifactId>mail</artifactId>
+	      <version>1.4.5</version>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>commons-io</groupId>
+	      <artifactId>commons-io</artifactId>
+	      <version>2.4</version>
+	    </dependency>
+
+
+
+		<!-- spring相关依赖 -->
+
+		<!-- (1):spring核心 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<!-- (2):spring DAO -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<!-- (3):spring Web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+
+		<!-- (4):spring test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring-version}</version>
+		</dependency>
+		
+		<!-- mybatis 分页 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>3.7.5</version>
+		</dependency>
+		
+		<!-- redis客户端:Jedis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.7.3</version>
+		</dependency>
+		
+		<!-- protostuff序列化依赖:redis存储需要(比JVM序列化效率高) -->
+		<dependency>
+		    <groupId>com.dyuproject.protostuff</groupId>
+		    <artifactId>protostuff-core</artifactId>
+		    <version>1.0.8</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.dyuproject.protostuff</groupId>
+		    <artifactId>protostuff-runtime</artifactId>
+		    <version>1.0.8</version>
+		</dependency>
+		
+		<!-- 验证码框架 -->
+		<dependency>
+		    <groupId>com.octo.captcha</groupId>
+		    <artifactId>jcaptcha</artifactId>
+		    <version>1.0</version>
+		</dependency>
+		
+		<!-- 校验框架Oval -->
+		<dependency>
+		    <groupId>net.sf.oval</groupId>
+		    <artifactId>oval</artifactId>
+		    <version>1.81</version>
+		</dependency>
+		
+		<!-- commons文件上传 -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.0.1</version>
+		</dependency>
+		
+		<!-- websocket -->
+		<dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+		
+	  <!-- dwr依赖:服务器端推送技术：反向ajax -->
+	  <dependency>
+		    <groupId>org.directwebremoting</groupId>
+		    <artifactId>dwr</artifactId>
+		    <version>3.0.2-RELEASE</version>
+	  </dependency>
+	  
+		<!-- 定时器 -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.2.1</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<finalName>loan</finalName>
+	</build>
+</project>

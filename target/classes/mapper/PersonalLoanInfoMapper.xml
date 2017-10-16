@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.PersonalLoanInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.PersonalLoanInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="loan_name" property="loanName" jdbcType="VARCHAR" />
+    <result column="loan_phone" property="loanPhone" jdbcType="VARCHAR" />
+    <result column="loan_location" property="loanLocation" jdbcType="VARCHAR" />
+    <result column="loan_money" property="loanMoney" jdbcType="DOUBLE" />
+    <result column="loan_deadline" property="loanDeadline" jdbcType="TIMESTAMP" />
+    <result column="loan_state" property="loanState" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="is_repay" property="isRepay" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="meterial_id" property="meterialId" jdbcType="VARCHAR" />
+    <result column="remind_content" property="remindContent" jdbcType="VARCHAR" />
+    <result column="loan_return_money" property="loanReturnMoney" jdbcType="DOUBLE" />
+    <result column="loan_month" property="loanMonth" jdbcType="INTEGER" />
+    <result column="loan_repay_date" property="loanRepayDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, loan_name, loan_phone, loan_location, loan_money, loan_deadline, loan_state, 
+    create_date, is_repay, user_id, meterial_id, remind_content, loan_return_money, loan_month, 
+    loan_repay_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.PersonalLoanInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from personal_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from personal_loan_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from personal_loan_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.PersonalLoanInfoExample" >
+    delete from personal_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.PersonalLoanInfo" >
+    insert into personal_loan_info (id, loan_name, loan_phone, 
+      loan_location, loan_money, loan_deadline, 
+      loan_state, create_date, is_repay, 
+      user_id, meterial_id, remind_content, 
+      loan_return_money, loan_month, loan_repay_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{loanName,jdbcType=VARCHAR}, #{loanPhone,jdbcType=VARCHAR}, 
+      #{loanLocation,jdbcType=VARCHAR}, #{loanMoney,jdbcType=DOUBLE}, #{loanDeadline,jdbcType=TIMESTAMP}, 
+      #{loanState,jdbcType=TINYINT}, #{createDate,jdbcType=TIMESTAMP}, #{isRepay,jdbcType=TINYINT}, 
+      #{userId,jdbcType=VARCHAR}, #{meterialId,jdbcType=VARCHAR}, #{remindContent,jdbcType=VARCHAR}, 
+      #{loanReturnMoney,jdbcType=DOUBLE}, #{loanMonth,jdbcType=INTEGER}, #{loanRepayDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.PersonalLoanInfo" >
+    insert into personal_loan_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loanName != null" >
+        loan_name,
+      </if>
+      <if test="loanPhone != null" >
+        loan_phone,
+      </if>
+      <if test="loanLocation != null" >
+        loan_location,
+      </if>
+      <if test="loanMoney != null" >
+        loan_money,
+      </if>
+      <if test="loanDeadline != null" >
+        loan_deadline,
+      </if>
+      <if test="loanState != null" >
+        loan_state,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="isRepay != null" >
+        is_repay,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="meterialId != null" >
+        meterial_id,
+      </if>
+      <if test="remindContent != null" >
+        remind_content,
+      </if>
+      <if test="loanReturnMoney != null" >
+        loan_return_money,
+      </if>
+      <if test="loanMonth != null" >
+        loan_month,
+      </if>
+      <if test="loanRepayDate != null" >
+        loan_repay_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="loanName != null" >
+        #{loanName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPhone != null" >
+        #{loanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="loanLocation != null" >
+        #{loanLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMoney != null" >
+        #{loanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="loanDeadline != null" >
+        #{loanDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanState != null" >
+        #{loanState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRepay != null" >
+        #{isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="meterialId != null" >
+        #{meterialId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        #{remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="loanReturnMoney != null" >
+        #{loanReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="loanMonth != null" >
+        #{loanMonth,jdbcType=INTEGER},
+      </if>
+      <if test="loanRepayDate != null" >
+        #{loanRepayDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.PersonalLoanInfoExample" resultType="java.lang.Integer" >
+    select count(*) from personal_loan_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update personal_loan_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanName != null" >
+        loan_name = #{record.loanName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanPhone != null" >
+        loan_phone = #{record.loanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanLocation != null" >
+        loan_location = #{record.loanLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanMoney != null" >
+        loan_money = #{record.loanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.loanDeadline != null" >
+        loan_deadline = #{record.loanDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loanState != null" >
+        loan_state = #{record.loanState,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isRepay != null" >
+        is_repay = #{record.isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meterialId != null" >
+        meterial_id = #{record.meterialId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remindContent != null" >
+        remind_content = #{record.remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanReturnMoney != null" >
+        loan_return_money = #{record.loanReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.loanMonth != null" >
+        loan_month = #{record.loanMonth,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanRepayDate != null" >
+        loan_repay_date = #{record.loanRepayDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update personal_loan_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      loan_name = #{record.loanName,jdbcType=VARCHAR},
+      loan_phone = #{record.loanPhone,jdbcType=VARCHAR},
+      loan_location = #{record.loanLocation,jdbcType=VARCHAR},
+      loan_money = #{record.loanMoney,jdbcType=DOUBLE},
+      loan_deadline = #{record.loanDeadline,jdbcType=TIMESTAMP},
+      loan_state = #{record.loanState,jdbcType=TINYINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      is_repay = #{record.isRepay,jdbcType=TINYINT},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      meterial_id = #{record.meterialId,jdbcType=VARCHAR},
+      remind_content = #{record.remindContent,jdbcType=VARCHAR},
+      loan_return_money = #{record.loanReturnMoney,jdbcType=DOUBLE},
+      loan_month = #{record.loanMonth,jdbcType=INTEGER},
+      loan_repay_date = #{record.loanRepayDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.PersonalLoanInfo" >
+    update personal_loan_info
+    <set >
+      <if test="loanName != null" >
+        loan_name = #{loanName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanPhone != null" >
+        loan_phone = #{loanPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="loanLocation != null" >
+        loan_location = #{loanLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMoney != null" >
+        loan_money = #{loanMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="loanDeadline != null" >
+        loan_deadline = #{loanDeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanState != null" >
+        loan_state = #{loanState,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRepay != null" >
+        is_repay = #{isRepay,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="meterialId != null" >
+        meterial_id = #{meterialId,jdbcType=VARCHAR},
+      </if>
+      <if test="remindContent != null" >
+        remind_content = #{remindContent,jdbcType=VARCHAR},
+      </if>
+      <if test="loanReturnMoney != null" >
+        loan_return_money = #{loanReturnMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="loanMonth != null" >
+        loan_month = #{loanMonth,jdbcType=INTEGER},
+      </if>
+      <if test="loanRepayDate != null" >
+        loan_repay_date = #{loanRepayDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.PersonalLoanInfo" >
+    update personal_loan_info
+    set loan_name = #{loanName,jdbcType=VARCHAR},
+      loan_phone = #{loanPhone,jdbcType=VARCHAR},
+      loan_location = #{loanLocation,jdbcType=VARCHAR},
+      loan_money = #{loanMoney,jdbcType=DOUBLE},
+      loan_deadline = #{loanDeadline,jdbcType=TIMESTAMP},
+      loan_state = #{loanState,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      is_repay = #{isRepay,jdbcType=TINYINT},
+      user_id = #{userId,jdbcType=VARCHAR},
+      meterial_id = #{meterialId,jdbcType=VARCHAR},
+      remind_content = #{remindContent,jdbcType=VARCHAR},
+      loan_return_money = #{loanReturnMoney,jdbcType=DOUBLE},
+      loan_month = #{loanMonth,jdbcType=INTEGER},
+      loan_repay_date = #{loanRepayDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteByLeftJoin" parameterType="java.lang.String">
+  		delete a.*,b.* from personal_loan_material a LEFT JOIN personal_loan_info b ON a.id = b.meterial_id  WHERE b.id=#{id,jdbcType=VARCHAR}
+  </delete>
+  
+
+  
+  
+</mapper>

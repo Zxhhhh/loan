@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy612.loan.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.gy612.loan.entity.UserInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_realname" property="userRealname" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_addr" property="userAddr" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="CHAR" />
+    <result column="user_age" property="userAge" jdbcType="INTEGER" />
+    <result column="user_logo" property="userLogo" jdbcType="VARCHAR" />
+    <result column="user_identitynum" property="userIdentitynum" jdbcType="VARCHAR" />
+    <result column="user_identitypic" property="userIdentitypic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_realname, user_phone, user_addr, user_sex, user_age, user_logo, user_identitynum, 
+    user_identitypic
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gy612.loan.entity.UserInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gy612.loan.entity.UserInfoExample" >
+    delete from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gy612.loan.entity.UserInfo" >
+    insert into user_info (id, user_realname, user_phone, 
+      user_addr, user_sex, user_age, 
+      user_logo, user_identitynum, user_identitypic
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userRealname,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userAddr,jdbcType=VARCHAR}, #{userSex,jdbcType=CHAR}, #{userAge,jdbcType=INTEGER}, 
+      #{userLogo,jdbcType=VARCHAR}, #{userIdentitynum,jdbcType=VARCHAR}, #{userIdentitypic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gy612.loan.entity.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userRealname != null" >
+        user_realname,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userAddr != null" >
+        user_addr,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userAge != null" >
+        user_age,
+      </if>
+      <if test="userLogo != null" >
+        user_logo,
+      </if>
+      <if test="userIdentitynum != null" >
+        user_identitynum,
+      </if>
+      <if test="userIdentitypic != null" >
+        user_identitypic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealname != null" >
+        #{userRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null" >
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userLogo != null" >
+        #{userLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentitynum != null" >
+        #{userIdentitynum,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentitypic != null" >
+        #{userIdentitypic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gy612.loan.entity.UserInfoExample" resultType="java.lang.Integer" >
+    select count(*) from user_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRealname != null" >
+        user_realname = #{record.userRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAddr != null" >
+        user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null" >
+        user_sex = #{record.userSex,jdbcType=CHAR},
+      </if>
+      <if test="record.userAge != null" >
+        user_age = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.userLogo != null" >
+        user_logo = #{record.userLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIdentitynum != null" >
+        user_identitynum = #{record.userIdentitynum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIdentitypic != null" >
+        user_identitypic = #{record.userIdentitypic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_realname = #{record.userRealname,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_addr = #{record.userAddr,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=CHAR},
+      user_age = #{record.userAge,jdbcType=INTEGER},
+      user_logo = #{record.userLogo,jdbcType=VARCHAR},
+      user_identitynum = #{record.userIdentitynum,jdbcType=VARCHAR},
+      user_identitypic = #{record.userIdentitypic,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gy612.loan.entity.UserInfo" >
+    update user_info
+    <set >
+      <if test="userRealname != null" >
+        user_realname = #{userRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null" >
+        user_addr = #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=CHAR},
+      </if>
+      <if test="userAge != null" >
+        user_age = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userLogo != null" >
+        user_logo = #{userLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentitynum != null" >
+        user_identitynum = #{userIdentitynum,jdbcType=VARCHAR},
+      </if>
+      <if test="userIdentitypic != null" >
+        user_identitypic = #{userIdentitypic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gy612.loan.entity.UserInfo" >
+    update user_info
+    set user_realname = #{userRealname,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_addr = #{userAddr,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=CHAR},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_logo = #{userLogo,jdbcType=VARCHAR},
+      user_identitynum = #{userIdentitynum,jdbcType=VARCHAR},
+      user_identitypic = #{userIdentitypic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByUserRealnameOrUserIdentitynum" resultType="com.gy612.loan.entity.UserInfo">
+  	select * from user_info where user_realname=#{userRealname,jdbcType=VARCHAR} or user_identitynum=#{userIdentitynum,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>
